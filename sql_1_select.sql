@@ -85,7 +85,7 @@ select name, IndepYear from country where Indepyear < 0;
 #
 #
 # 17: Get the countries that has no recorded independence year and a population above 1000000
-#select name, IndepYear,population from country where Indepyear is null and population > 1000000;
+# select name, IndepYear,population from country where Indepyear is null and population > 1000000;
 #
 # 18: Get countries with a SurfaceArea below 10 and a defined LifeExpectancy
 
