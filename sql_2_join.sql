@@ -133,8 +133,8 @@ select name,id from city where id in (select capital from country cy where regio
 
 
 
-select Language,c.CountryCode from countrylanguage as cl join city as c 
- on c.CountryCode=cl.CountryCode where c.name="Riga";
+select distinct language from countrylanguage where countrycode in (select code from country where region 
+ in(select region  from country cy join city c on cy.code = c.CountryCode where  c.name="Riga"));
 #
 #
 # 20: Get the name of the most populous city
