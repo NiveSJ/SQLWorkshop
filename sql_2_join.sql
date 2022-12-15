@@ -75,6 +75,10 @@ where population between 400 and 500);
 select cl.language from  countrylanguage as cl join city as c on cl.CountryCode = c.CountryCode 
 where c.Population between 400 and 500;
 
+-- Mehardad solution :
+
+SELECT language FROM city INNER JOIN countrylanguage USING (countrycode) WHERE population BETWEEN 400 AND 500;
+
 
 #
 # 14: What are the name(s) of the cities with a population between 500 and 600 people and 
@@ -93,6 +97,9 @@ where c.Population between 500 and 600;
 select name,countrycode from city where countrycode
  in (select countrycode from city where population = 122199);
 
+-- mehardad solution :
+
+SELECT c2.name FROM city c1,city c2 WHERE c1.countrycode=c2.countrycode AND c1.population=122199;
 
 #
 #
@@ -102,6 +109,11 @@ select name,countrycode from city where countrycode
 select name,countrycode from city where  countrycode 
  in (select countrycode from city where population = 122199)  and name not in 
  (select name from city where population = 122199);
+ 
+ 
+ -- Mehardad solution:
+ 
+ SELECT c2.name FROM city c1,city c2 WHERE c1.countrycode=c2.countrycode AND c1.population=122199 AND c2.population<>122199;
 #
 #
 # 17: What are the city names in the country where Luanda is capital?
@@ -119,6 +131,9 @@ select name,countrycode from city where  countrycode
 
 select name,countrycode from city where countrycode in (select countrycode from city where name = "Luanda");
 
+-- Mehardad solution 
+
+SELECT nc.name FROM city yc,country c,city nc WHERE yc.name="luanda" AND yc.id=c.capital AND c.code=nc.countrycode;
           
 #
 #
@@ -129,6 +144,9 @@ select name,countrycode from city where countrycode in (select countrycode from 
 select name,id from city where id in (select capital from country cy where region in
  (select cy.region as r from country cy join city c on cy.code = c.CountryCode where  c.name="Yaren"));
 
+-- Mehardad solution 
+
+SELECT oci.name FROM city yci,country yco,country oco,city oci WHERE yci.name="Yaren" AND yci.id=yco.capital AND yco.region=oco.region AND oco.capital=oci.id;
 
 
 
@@ -139,6 +157,11 @@ select name,id from city where id in (select capital from country cy where regio
 
 select distinct language from countrylanguage where countrycode in (select code from country where region 
  in(select region  from country cy join city c on cy.code = c.CountryCode where  c.name="Riga"));
+ 
+ 
+ -- Mehardad solution :
+ 
+ SELECT DISTINCT language FROM city,country cc,country rc,countrylanguage cl WHERE city.name="riga" AND city.countrycode=cc.code AND cc.region=rc.region AND rc.code=cl.countrycode;
 #
 #
 # 20: Get the name of the most populous city
@@ -147,6 +170,8 @@ select distinct language from countrylanguage where countrycode in (select code 
  select name,population from city where population in (select max(population) from city) ;
  
   select name, population from world.city order by population desc limit 1;
+  
+  SELECT cc.name,cc.population,max(mc.population) mp FROM city cc,city mc GROUP BY cc.name HAVING cc.population=mp;
  
  
 
