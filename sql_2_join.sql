@@ -171,6 +171,7 @@ select distinct language from countrylanguage where countrycode in (select code 
  
   select name, population from world.city order by population desc limit 1;
   
+  -- Mehardad solution
   SELECT cc.name,cc.population,max(mc.population) mp FROM city cc,city mc GROUP BY cc.name HAVING cc.population=mp;
  
  
