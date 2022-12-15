@@ -146,6 +146,8 @@ select distinct language from countrylanguage where countrycode in (select code 
  
  select name,population from city where population in (select max(population) from city) ;
  
+  select name, population from world.city order by population desc limit 1;
+ 
  
 
  
