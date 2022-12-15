@@ -115,6 +115,10 @@ select name,countrycode from city where  countrycode
  (select cy.code from country as cy join city as c  on c.countrycode=cy.code where c.name= "Luanda");
 
 
+-- method 3
+
+select name,countrycode from city where countrycode in (select countrycode from city where name = "Luanda");
+
           
 #
 #
